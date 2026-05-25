@@ -5,6 +5,15 @@ Una calculadora web moderna y funcional, diseñada con la estética de la calcul
 ## Creador por: Hugo Méndez - 241265
 
 ---
+## Imagen de la calculadora
+
+<img width="362" height="568" alt="image" src="https://github.com/user-attachments/assets/740b2923-c7c8-4f7d-b1c4-2034a9afd4ea" />
+
+---
+
+Link de app corriendo: http://35.255.29.219:5174/
+
+---
 
 ## 🚀 Tecnologías (Tech Stack)
 - **Framework:** React 19 + TypeScript (vía Vite)
