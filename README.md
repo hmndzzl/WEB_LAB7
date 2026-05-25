@@ -1,73 +1,103 @@
-# React + TypeScript + Vite
+# Laboratorio: Calculadora Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una calculadora web moderna y funcional, diseñada con la estética de la calculadora científica **Casio fx-991LA CW**. Este proyecto fue construido para cumplir con restricciones estructurales y requerimientos técnicos estrictos, demostrando competencia en React, testing y herramientas modernas de frontend.
 
-Currently, two official plugins are available:
+## Creador por: Hugo Méndez - 241265
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Tecnologías (Tech Stack)
+- **Framework:** React 19 + TypeScript (vía Vite)
+- **Estilos:** CSS puro (`index.css`)
+- **Package Manager:** [Bun](https://bun.sh/)
+- **Testing:** Vitest & React Testing Library
+- **Documentación:** Storybook
+- **Linter:** ESLint configurado con `neostandard` (JavaScript Standard Style)
+- **Contenedores:** Docker & Docker Compose
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📌 Requerimientos y Características del Proyecto
+Esta calculadora implementa en su totalidad los requerimientos de la tarea del laboratorio:
+- **Límite de 9 caracteres en pantalla:** Limita la longitud en el display a un máximo de 9 caracteres, manejando el truncamiento de decimales y números largos correctamente.
+- **Estados de Error:** Muestra `ERROR` si las operaciones resultan en números negativos o si superan `999999999`.
+- **Operaciones Soportadas:** Suma (`+`), Resta (`-`), Multiplicación (`*`), División (`/`), Módulo (`%`), Cambio de signo (`+/-`), y Punto Decimal (`.`).
+- **Restricción Estricta de Longitud de Archivos:** Todo archivo de componentes de React (ej. `App.tsx`, `Calculator.tsx`, `Button.tsx`) contiene estrictamente **menos de 20 líneas de código**. Toda la lógica está abstraída en un custom hook.
+- **Lógica en Custom Hook:** La lógica matemática y el estado son manejados completamente por `useCalculator.ts`.
+- **Linter Estricto:** Sigue las reglas de Standard JS, con reglas personalizadas para prohibir los puntos y coma (`;`) y para limitar la longitud de la línea a 120 caracteres máximo.
+- **Storybook:** Incluye 5 historias personalizadas para los componentes.
+- **Pruebas Automatizadas (Testing):** Incluye 5 pruebas lógicas unitarias no triviales vía Vitest.
+- **Diseño Premium UI:** Cuenta con un diseño en CSS responsivo de alta calidad directamente inspirado en las calculadoras serie "ClassWiz" de Casio.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🏗 Estructura de la Aplicación
+```text
+.
+├── Dockerfile                  # Imagen ultra ligera oven/bun:1-alpine
+├── docker-compose.yml          # Configuración del contenedor
+├── eslint.config.js            # Configuración de ESLint con StandardJS
+├── bun.lock                    # Archivo Lock de Bun
+├── src/
+│   ├── App.tsx                 # Componente de entrada
+│   ├── index.css               # Estilos con el tema de Casio
+│   ├── components/
+│   │   ├── Button.tsx          # Componente de botón reutilizable (<20 líneas)
+│   │   ├── Calculator.tsx      # Wrapper principal y marcas (<20 líneas)
+│   │   ├── Display.tsx         # Pantalla LCD de la calculadora (<20 líneas)
+│   │   ├── Keypad.tsx          # Layout de la grilla del teclado (<20 líneas)
+│   │   └── Calculator.stories.tsx # Configuraciones para Storybook
+│   └── hooks/
+│       ├── useCalculator.ts    # Custom hook de la lógica central
+│       └── useCalculator.test.ts # Suite de pruebas en Vitest
+└── public/
+    └── favicon.svg             # Icono (favicon) personalizado
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠 Instrucciones para Correr en Local
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Clonar el repositorio
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/hmndzzl/WEB_LAB7.git
+cd WEB_LAB7
 ```
+
+### Usando Docker (Recomendado)
+Puedes construir y levantar el proyecto instantáneamente utilizando Docker Compose. El entorno estará completamente aislado:
+```bash
+docker compose up --build -d
+```
+La aplicación estará disponible en: **[http://localhost:5173](http://localhost:5173)**
+
+### Usando Bun Nativamente
+Si prefieres correrlo fuera de Docker y tienes Bun instalado:
+1. Instala las dependencias:
+   ```bash
+   bun install
+   ```
+2. Levanta el servidor de desarrollo:
+   ```bash
+   bun run dev
+   ```
+
+## 🧪 Testing y Linter
+
+**Correr las pruebas (Tests):**
+Para correr la suite de pruebas automatizadas en Vitest y ejecutar los 5 tests lógicos no triviales:
+```bash
+npm test
+# O
+bun run test
+```
+
+**Correr el Linter:**
+Para verificar el cumplimiento del código con Standard JS (0 puntos y coma, max-len 120):
+```bash
+bun run lint
+```
+
+## 📚 Storybook
+Para interactuar con los componentes UI aislados (como los botones y la pantalla LCD) a través de Storybook:
+```bash
+bun run storybook
+# O
+npm run storybook
+```
+Esto lanzará un servidor local (típicamente en `http://localhost:6006`) donde podrás ver todas las variaciones de los componentes.
